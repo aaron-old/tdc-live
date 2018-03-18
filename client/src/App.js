@@ -4,9 +4,9 @@ import Page from './components/page/Page'
 class App extends Component {
   render() {
     return (
-      <div className="app">
+      <section className="app">
         <Page/>
-      </div>
+      </section>
     );
   }
 }

@@ -44,5 +44,9 @@ export default [
         path: '/admin',
         exact: true,
         component: Admin
+    },
+    {
+        name: 'not-found',
+        component: NotFound
     }
 ];

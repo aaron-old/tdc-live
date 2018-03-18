@@ -1,9 +1,10 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import routes from './Routes';
 
 const router = () => (
   <div className="router-div">
+    <Switch>
       {routes.map(route => (
           <Route
             key={`route-${route.name}`}
@@ -13,6 +14,7 @@ const router = () => (
             render={route.render}
           />
       ))}
+    </Switch>
   </div>
 );
 export default router;
