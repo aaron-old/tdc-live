@@ -1,11 +1,23 @@
 import React from 'react';
-import Home from './Home';
-import Contact from './Contact';
-import Stories from './Stories';
-import Story from './Story';
-import Login from './Login';
-import Admin from './Admin';
-import NotFound from './NotFound';
+import {Redirect} from 'react-router-dom';
+import Auth from '../../util/auth';
+import Home from './home/home';
+import Contact from './contact/contact';
+import Stories from './story/stories';
+import Story from './story/story';
+import Login from './login/login';
+import Admin from './admin/admin';
+import CallbackPage from './Callback';
+import NotFound from './error/404';
+import Profile from "./profile/profile";
+
+const auth = new Auth();
+
+const handleAuthentication = ({location}) => {
+    if (/access_token|id_token|error/.test(location.hash)) {
+        auth.handleAuthentication();
+    }
+};
 
 export default [
 
@@ -13,7 +25,13 @@ export default [
         name: 'home',
         path: '/',
         exact: true,
-        component: Home
+        render: (props) => (<Home auth={auth} {...props}/>)
+    },
+    {
+        name: 'home',
+        path: '/home',
+        exact: true,
+        render: (props) => (<Home auth={auth}{...props}/>)
     },
     {
         name: 'contact',
@@ -44,6 +62,26 @@ export default [
         path: '/admin',
         exact: true,
         component: Admin
+    },
+    {
+        name: 'profile',
+        path: '/profile',
+        render: (props) => {
+            return !auth.isAuthenticated() ? (
+                <Redirect to="/login"/>
+            ): (
+                <Profile auth={auth} {...props}/>
+            )
+        }
+    },
+    {
+        name: 'callback',
+        path: '/callback',
+        exact: true,
+        render: (props) => {
+            handleAuthentication(props);
+            return <CallbackPage {...props}/>
+        }
     },
     {
         name: 'not-found',

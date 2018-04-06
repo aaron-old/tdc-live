@@ -1,2 +1,3 @@
 ./idea
 ./.vscode
+./client/src/config/auth0-variables.js

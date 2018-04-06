@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Auth from '../../util/auth';
+import Auth from '../../../util/auth';
 
 const Login = () => {
     const auth = new Auth();
